@@ -15,5 +15,6 @@ spec:
       containers:
         - name: api
           image: frapplez/kubeapi
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
