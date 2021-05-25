@@ -1,0 +1,25 @@
+apiVersion: skaffold/v2beta16
+kind: Config
+metadata:
+  name: kubestatus
+build:
+  local:
+    push: true
+    useDockerCLI: true
+  artifacts:
+  - image: frapplez/kubeapi
+    context: api
+    docker:
+      dockerfile: Dockerfile
+  - image: frapplez/kubeclient
+    context: frontend
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - k8s/api-cluster-ip-service.yml
+    - k8s/api-deployment.yml
+    - k8s/client-cluster-ip-service.yml
+    - k8s/client-deployment.yml
+    - k8s/ingress-service.yml
